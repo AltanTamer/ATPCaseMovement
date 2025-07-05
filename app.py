@@ -167,7 +167,7 @@ def main():
                             st.image(
                                 frames[frame_idx],
                                 caption=f"Frame {frame_idx}",
-                                use_column_width=True
+                                use_container_width=True
                             )
                 
                 if len(movement_frames) > max_frames_to_show:
