@@ -52,8 +52,13 @@ This pipeline ensures that only global camera movements (such as pan, tilt, or s
    ```
 
 4. **Usage:**
-   - Upload a video file (MP4, MOV, AVI, MKV) or an animated GIF.
+   - Upload a video file (MP4, MOV, AVI, MKV) or an animated GIF. 
    - The app will analyze the frames and display detected camera movements, a movement score chart, and a detailed analysis table.
+
+**Sample Data:**
+- You can upload a video file (MP4, MOV, AVI, MKV) or an animated GIF.
+- For testing, I downloaded GIFs from the [CameraBench dataset on Hugging Face](https://huggingface.co/datasets/syCen/CameraBench/viewer/default/test?views%5B%5D=test&row=16) and ran the app locally on my computer.
+- No pre packaged dataset was included in the repository; all tests were performed with manually downloaded files.
 
 ## Live App
 
