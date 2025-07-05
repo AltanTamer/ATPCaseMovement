@@ -57,18 +57,4 @@ This pipeline ensures that only global camera movements (such as pan, tilt, or s
 
 ## Live App
 
-[Live Demo Link](https://your-streamlit-app-link)
-*(Replace with your actual deployed app URL)*
-
-## Example Input/Output
-
-**Input:**  
-- Animated GIF or video with camera shake, pan, or tilt.
-
-**Output:**  
-- List of frames where significant camera movement is detected.
-- Interactive movement score chart.
-- Table showing frame-by-frame analysis, including movement type (camera/object/static).
-
-![Example Screenshot](link-to-screenshot.png)
-*(Replace with your actual screenshot)*
+https://altanatp.streamlit.app/
