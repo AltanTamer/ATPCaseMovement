@@ -1,39 +1,74 @@
+Camera Movement Detection
 
-# 2025
-ATPTech Core Talent Repo
+This project implements a robust camera movement detection system using feature matching and homography analysis. The goal is to accurately detect significant camera movements (such as pan, tilt, or shake) in videos or animated GIFs, while distinguishing these from simple object motion within the scene. The system leverages ORB feature detection and OpenCV's homography estimation to analyze global frame transformations.
 
+## Approach & Movement Detection Logic
 
-**Your tasks:**
-- Implement movement detection logic in `movement_detector.py`
-- Create a simple web app interface in `app.py` for uploading images/videos and viewing results
-- Deploy your solution (e.g., Streamlit Cloud or Hugging Face Spaces)
-- Submit your app URL and GitHub repo
+- **Feature Extraction:**  
+  For each frame, I extract unique feature points using the ORB (Oriented FAST and Rotated BRIEF) algorithm. These features are robust to changes in scale and rotation, and are used for matching and tracking movement across frames.
 
----
+- **Feature Matching:**  
+  For every pair of consecutive frames, I match the extracted features using their binary ORB descriptors. The matching process relies on the Hamming distance, which efficiently compares the binary descriptors and identifies the best correspondences between frames.
 
-## 🚀 Getting Started
+- **Homography Estimation:**  
+  Once enough matches are found, I estimate a homography matrix using RANSAC. This matrix models the global geometric transformation (translation, rotation, scaling) between the two frames.
 
-1. Clone this repo
-2. Install dependencies:  
-    pip install -r requirements.txt
-3. Add or use sample frames in `test_images/`
-4. Run locally:  
+- **Movement Scoring:**  
+  I analyze the components of the homography matrix to compute a movement score for each frame. This score is a weighted combination of translation, rotation, and scale changes.
 
+- **Movement Classification:**  
+  If the movement score exceeds a fixed threshold, the frame is classified as containing significant camera movement. Otherwise, it is considered static or only contains object movement.
 
-## 📂 Files
+This pipeline ensures that only global camera movements (such as pan, tilt, or shake) are detected, while local object motion within the scene does not trigger false positives.
 
-- `movement_detector.py`: Put your main detection logic here
-- `app.py`: Streamlit web app
-- `requirements.txt`: Dependencies
-- `test_images/`: Place sample image frames for testing
+## Challenges & Assumptions
 
----
+- **Featureless or Repetitive Scenes:**  
+  In scenes with very few or repetitive features (e.g., blank walls), homography estimation may be unreliable, potentially leading to missed detections or false positives.
 
-## 💡 Hints
+- **Fast or Blurry Motion:**  
+  Rapid camera movement or motion blur can reduce feature matching quality, which may affect detection accuracy.
 
-- Check out OpenCV functions like `cv2.absdiff`, `cv2.goodFeaturesToTrack`, `cv2.findHomography`
-- For extra credit: Visualize detected movement on output frames
+- **Assumptions:**  
+  - The input is either a video file (MP4, MOV, AVI, MKV) or an animated GIF.  
+  - Single images or static image sequences are not supported, as movement detection requires multiple frames.
 
----
+## How to Run the App Locally
 
-Good luck!
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/AltanTamer/ATPCaseMovement
+   cd ATPCaseMovement
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+3. **Run the Streamlit app:**
+   ```bash
+   streamlit run app.py
+   ```
+
+4. **Usage:**
+   - Upload a video file (MP4, MOV, AVI, MKV) or an animated GIF.
+   - The app will analyze the frames and display detected camera movements, a movement score chart, and a detailed analysis table.
+
+## Live App
+
+[Live Demo Link](https://your-streamlit-app-link)
+*(Replace with your actual deployed app URL)*
+
+## Example Input/Output
+
+**Input:**  
+- Animated GIF or video with camera shake, pan, or tilt.
+
+**Output:**  
+- List of frames where significant camera movement is detected.
+- Interactive movement score chart.
+- Table showing frame-by-frame analysis, including movement type (camera/object/static).
+
+![Example Screenshot](link-to-screenshot.png)
+*(Replace with your actual screenshot)*

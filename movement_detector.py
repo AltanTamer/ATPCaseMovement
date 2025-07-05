@@ -101,18 +101,18 @@ def analyze_transformation(H: np.ndarray, num_matches: int, num_inliers: int) ->
     translation_magnitude = np.sqrt(tx**2 + ty**2)
     rotation_angle = np.arctan2(b, a)
     scale_factor = np.sqrt(a**2 + c**2)
-    normalized_translation = min(translation_magnitude / 100.0, 1.0)
-    normalized_rotation = min(abs(rotation_angle) / (np.pi/4), 1.0)
-    normalized_scale = min(abs(scale_factor - 1.0) / 0.5, 1.0)
+    normalized_translation = min(translation_magnitude / 8.0, 1.0)
+    normalized_rotation = min(abs(rotation_angle) / (np.pi/18), 1.0)
+    normalized_scale = min(abs(scale_factor - 1.0) / 0.08, 1.0)
     movement_score = (
-        0.4 * normalized_translation * 100 +
-        0.3 * normalized_rotation * 100 +
-        0.3 * normalized_scale * 100
+        0.6 * normalized_translation * 100 +
+        0.25 * normalized_rotation * 100 +
+        0.15 * normalized_scale * 100
     )
-    if num_matches < 20:
-        movement_score *= 1.5
-    if num_inliers / num_matches < 0.5:
-        movement_score *= 1.3
-    return min(movement_score, 100.0)
+    if num_matches < 15:
+        movement_score *= 1.1
+    if num_inliers / num_matches < 0.4:
+        movement_score *= 1.05
+    return movement_score
 
 
