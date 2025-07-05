@@ -58,3 +58,5 @@ This pipeline ensures that only global camera movements (such as pan, tilt, or s
 ## Live App
 
 https://altanatp.streamlit.app/
+
+![image](https://github.com/user-attachments/assets/a40b9538-5739-40b4-84c8-00f902ba8c1f)
